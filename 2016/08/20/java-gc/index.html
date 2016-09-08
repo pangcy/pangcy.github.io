@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="jvm," />
 
 
 
@@ -84,12 +84,25 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kelly's blog">
-<meta property="og:url" content="http://pangcy.github.io/index.html">
+<meta name="description" content="前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。
+java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。
+虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。
+#####根搜索算法：把一些对象作为“GC Root”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java垃圾回收总结">
+<meta property="og:url" content="http://pangcy.github.io/2016/08/20/java-gc/index.html">
 <meta property="og:site_name" content="Kelly's blog">
+<meta property="og:description" content="前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。
+java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。
+虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。
+#####根搜索算法：把一些对象作为“GC Root”">
+<meta property="og:updated_time" content="2016-09-06T16:33:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kelly's blog">
+<meta name="twitter:title" content="java垃圾回收总结">
+<meta name="twitter:description" content="前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。
+java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。
+虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。
+#####根搜索算法：把一些对象作为“GC Root”">
 
 
 
@@ -110,9 +123,9 @@
 
 
 
-  <link rel="canonical" href="http://pangcy.github.io/"/>
+  <link rel="canonical" href="http://pangcy.github.io/2016/08/20/java-gc/"/>
 
-  <title> Kelly's blog </title>
+  <title> java垃圾回收总结 | Kelly's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,9 +146,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -222,9 +233,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -244,240 +255,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/22/talk-about-hashMap/" itemprop="url">
-                  说一说Java的HashMap
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-22T00:00:00+08:00" content="2016-08-22">
-              2016-08-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/21/heap-and-stack/" itemprop="url">
-                  java的栈与堆
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-21T00:00:00+08:00" content="2016-08-21">
-              2016-08-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p></p><p>java的内存主要分成栈（stack）和堆（heap）两部分。在函数中，一些基本类型的变量和对象的<br>  引用变量都会分配在栈内存中，堆内存主要用于存放由new创建的对象和数组。从堆和栈的功能和作<br>  用来通俗的比较,堆主要用来存放对象的，栈主要是用来执行程序的<br></p><p></p>
-<p>###栈的优缺点<br></p>
-<p></p><p>栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。<br></p><p></p>
-<p>###堆的优缺点<br></p>
-<p></p><p>堆内存用于存放由new创建的对象和数组。在堆中分配的内存，由java虚拟机自动垃圾回收器来管理<br>。堆的优点在于编译器不必知道要从堆里分配多少存储空间，也不必知道对象的生命周期,因此,用堆保存数据时会得到更大的灵活性。但是与栈相比，堆的分配和释放比栈更加复杂，而且堆上的内存很有可能不在寄存器或者CUP缓存中，访问命中率就低，所以效率也就会低。<br></p><p></p>
-<p>###JVM中的堆和栈<br></p><p><br>JVM是基于堆栈的虚拟机。JVM为每个新创建的线程都分配一个堆栈。也就是说,对于一个Java程序来说<br>，它的运行就是通过对堆栈的操作来完成的。堆栈是操作系统在建立某个线程并为这个线程建立的存储区域，该区域具有先进后出的特性。<br><br>每一个Java应用都唯一对应一个JVM实例，每一个实例唯一对应一个堆。应用程序在运行中所创建的所<br>有类实例或数组都放在这个堆中，并由应用所有的线程共享。Java中分配堆内存是自动初始化的。Jav<br>a中所有对象的存储空间都是在堆中分配的，但是这个对象的引用却是在堆栈中分配,也就是说在建立<br>一个对象时从两个地方都分配内存，在堆中分配的内存实际建立这个对象，而在栈中分配的内存只是<br>一个指向这个堆对象的指针(引用)而已。<br></p><p></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/20/java-gc/" itemprop="url">
-                  java垃圾回收总结
-                </a>
+                java垃圾回收总结
               
             
           </h1>
@@ -536,9 +314,7 @@
       
 
       
-        
-          
-            <p>前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。</p>
+        <p>前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。</p>
 <p>java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。</p>
 <p>虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。</p>
 <p>#####根搜索算法：<br>把一些对象作为“GC Root”，也就是起点，从这个起点开始向下搜索，搜索的路径就叫做引用链。如果一个对象到起点没有引用链，那么这个对象就是不可用的，需要被回收的。GC Root包括：</p>
@@ -561,171 +337,63 @@
 <p>1，3是阻塞的，需要暂停所有其他线程。而2和4是并发完成的，不需要暂停其他用户线程。</p>
 <p>   其他的收集器还包括Serial（新生代），Parallel Scavenge（新生代），Serial Old（老生代），Parallel Old（老生代），G1等。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/19/erlang-install/" itemprop="url">
-                  mac下安装erlang
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T00:00:00+08:00" content="2016-08-19">
-              2016-08-19
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/jvm/" rel="tag">#jvm</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <ul>
-<li><p>下载erlang源码</p>
-<p>地址<a href="http://www.erlang.org或者https://github.com/erlang/otp" target="_blank" rel="external">http://www.erlang.org或者https://github.com/erlang/otp</a></p>
-</li>
-<li><p>将源码进行解压缩</p>
-<p><code>tar -zxf otp_src_17.4.tar.gz</code></p>
-</li>
-<li><p>进入到解压缩的文件夹</p>
-<p><code>cd otp_src_17.4</code></p>
-</li>
-<li><p>配置环境变量</p>
-<p><code>vi ~/.bash.profile</code></p>
-<p>export ERL_TOP=<code>pwd</code></p>
-<p>（pwd是获取当前的绝对路径，注意一定要是erlang源码的地址）</p>
-<p><code>export LANG=C</code></p>
-</li>
-<li><p>编译与安装</p>
-<p><code>make</code></p>
-<p><code>sudo make install</code></p>
-</li>
-<li><p>安装目录是：/usr/local</p>
-</li>
-</ul>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/19/erlang-install/" rel="next" title="mac下安装erlang">
+                <i class="fa fa-chevron-left"></i> mac下安装erlang
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/21/heap-and-stack/" rel="prev" title="java的栈与堆">
+                java的栈与堆 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -733,6 +401,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -752,8 +424,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -803,6 +484,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -906,6 +598,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
