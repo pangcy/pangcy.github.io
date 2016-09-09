@@ -96,7 +96,7 @@
 索引又分为聚簇索引和非聚簇索引（对InnoDB而言）">
 <meta property="og:image" content="http://pangcy.github.io/images/pic2.jpeg">
 <meta property="og:image" content="http://pangcy.github.io/images/pic3.jpeg">
-<meta property="og:updated_time" content="2016-09-09T09:44:24.000Z">
+<meta property="og:updated_time" content="2016-09-09T10:09:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引学习笔记">
 <meta name="twitter:description" content="MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。简单通俗的比喻一下，索引就好比一本书的目录，能够快速的定位到你想查找的位置上去。
@@ -326,7 +326,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employees <span class="keyword">where</span> first_name=<span class="string">'Georgi'</span> <span class="keyword">and</span> last_name=<span class="string">'Facello'</span></div><div class="line"><span class="keyword">and</span> birth_date=<span class="string">'1953-09-02'</span>;</div></pre></td></tr></table></figure>
 <p>这条sql语句用到了上面复合索引，并且这个三个字段位置可以任意，都会用到这个索引。其实按照最左匹配原则where条件顺序应该是要按照索引里面字段的顺序，现在可以顺序随便，因为mysql内部做了优化。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employees <span class="keyword">where</span> last_name=<span class="string">'Facello'</span><span class="keyword">and</span> birth_date=<span class="string">'1953-09-02'</span>;</div></pre></td></tr></table></figure>
-<p>上面这条sql没有用到索引，因为符合索引的第一个字段first_name没有出现在where条件中，不符合最左前缀原则。</p>
+<p>上面这条sql没有用到索引，因为复合索引的第一个字段first_name没有出现在where条件中，不符合最左前缀原则。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employees <span class="keyword">where</span> last_name=<span class="string">'Facello'</span><span class="keyword">and</span> first_name=<span class="string">'Georgi'</span>;</div></pre></td></tr></table></figure>
 <p>虽然where条件只有两个，但是first_name,last_name这两个字段是该索引的前面两个字段，所有符合最左前缀原则，用到了两个字段的索引。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employees <span class="keyword">where</span> birth_date=<span class="string">'1953-09-02'</span> <span class="keyword">and</span> first_name=<span class="string">'Georgi'</span>;</div></pre></td></tr></table></figure></p>
 <p>虽然这条语句也用到了索引，但是只用到first_name这个字段，因为第二个字段没有在where条件中，mysql按照顺序，发现没有第二个字段，索引只能在第一个字段中过滤的数据里面扫描birth_date这个字段的数据。</p>
