@@ -87,7 +87,7 @@
 <meta name="description" content="前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。
 java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。
 虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。
-#####根搜索算法：把一些对象作为“GC Root”">
+根搜索算法：把一些对象作为“GC Root”，也就是起">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java垃圾回收总结">
 <meta property="og:url" content="http://pangcy.github.io/2016/08/20/java-gc/index.html">
@@ -95,14 +95,14 @@ java不像c和c++那样需要程序员自己去分配和回收内存，java是�
 <meta property="og:description" content="前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。
 java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。
 虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。
-#####根搜索算法：把一些对象作为“GC Root”">
-<meta property="og:updated_time" content="2016-09-06T16:33:16.000Z">
+根搜索算法：把一些对象作为“GC Root”，也就是起">
+<meta property="og:updated_time" content="2016-09-09T05:29:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java垃圾回收总结">
 <meta name="twitter:description" content="前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。
 java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。
 虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。
-#####根搜索算法：把一些对象作为“GC Root”">
+根搜索算法：把一些对象作为“GC Root”，也就是起">
 
 
 
@@ -317,7 +317,7 @@ java不像c和c++那样需要程序员自己去分配和回收内存，java是�
         <p>前几天看了有关于java的垃圾回收机制方法的文章，感觉自己有了一点收获，在遗忘之前赶紧记录下来。</p>
 <p>java不像c和c++那样需要程序员自己去分配和回收内存，java是虚拟机动态的分配内存以及回收内存的，java的内存回收装置叫做垃圾收集器。</p>
 <p>虚拟机去回收垃圾的时候肯定需要知道哪些对象需要回收，哪些又不需要回收。这里java就运用到根搜索算法。</p>
-<p>#####根搜索算法：<br>把一些对象作为“GC Root”，也就是起点，从这个起点开始向下搜索，搜索的路径就叫做引用链。如果一个对象到起点没有引用链，那么这个对象就是不可用的，需要被回收的。GC Root包括：</p>
+<h5 id="根搜索算法："><a href="#根搜索算法：" class="headerlink" title="根搜索算法："></a>根搜索算法：</h5><p>把一些对象作为“GC Root”，也就是起点，从这个起点开始向下搜索，搜索的路径就叫做引用链。如果一个对象到起点没有引用链，那么这个对象就是不可用的，需要被回收的。GC Root包括：</p>
 <ul>
 <li>虚拟机栈（栈帧中的本地变量表）中的引用的对象。</li>
 <li>方法区域中的类静态属性引用的对象。</li>
@@ -325,9 +325,9 @@ java不像c和c++那样需要程序员自己去分配和回收内存，java是�
 <li>本地方法栈中JNI（Native方法）的引用的对象。</li>
 </ul>
 <p>java虚拟机一般采用的是分代回收机制，java堆分为新生代和老年代，再根据不同的年代采用不同的收集算法。新生代的主要特点就是大批对象都是可被回收的，只有少数对象还存活着。老年代的特点就是对象的存活率都比较高。</p>
-<p>#####在回收新生代的时候我们采用的是复制算法。<br>下面简单介绍一下复制算法：<br>    该算法主要把内存划分为一块Eden空间和两块Survivor空间，在虚拟机中他们的默认比值为8：1，也就是说Eden的空间很大。每次都只会使用一块Eden和一块Survivor，当回收的时候，先会把Eden和一块Survivor上面存活的对象拷贝到另外一块Survivor上面，最后再清理掉刚才的Eden和被使用过的Survivor。</p>
-<p>#####在回收老年代的时候我们用的是标记-清除，或者标记-整理算法。<br>   标记清除算法比较简单，但是容易产生内存碎片，在后续的运行过程中可能会造成无法分配大对象。主要是因为标记清除算法首先会把要回收的对象标记出来，然后再清楚点所有被标记的对象，这些对象很可能在内存中都是不连续的。标记整理算法对前面的标记清除进行了优化，和前面一样，它也是想把要清除的对象进行标记，然后把所有存活的对象都移到一端，然后再把这个端意外的对象清除掉。<br></p>
-<p>#####下面说一下常用的垃圾收集器。<br>   在新生代中最常用的是ParNew收集器。在收集新生代是采用的是复制算法，这个收集器是使用多线程进行垃圾收集。一般用在多核CPU环境下，它一般与CMS收集器配合使用。<br>   老年代中常用的是CMS收集器，它使一种以获取最短回收停顿时间为目标的收集器。它的收集过程一共分为四个步骤：</p>
+<h5 id="在回收新生代的时候我们采用的是复制算法。"><a href="#在回收新生代的时候我们采用的是复制算法。" class="headerlink" title="在回收新生代的时候我们采用的是复制算法。"></a>在回收新生代的时候我们采用的是复制算法。</h5><p>下面简单介绍一下复制算法：<br>    该算法主要把内存划分为一块Eden空间和两块Survivor空间，在虚拟机中他们的默认比值为8：1，也就是说Eden的空间很大。每次都只会使用一块Eden和一块Survivor，当回收的时候，先会把Eden和一块Survivor上面存活的对象拷贝到另外一块Survivor上面，最后再清理掉刚才的Eden和被使用过的Survivor。</p>
+<h5 id="在回收老年代的时候我们用的是标记-清除，或者标记-整理算法。"><a href="#在回收老年代的时候我们用的是标记-清除，或者标记-整理算法。" class="headerlink" title="在回收老年代的时候我们用的是标记-清除，或者标记-整理算法。"></a>在回收老年代的时候我们用的是标记-清除，或者标记-整理算法。</h5><p>   标记清除算法比较简单，但是容易产生内存碎片，在后续的运行过程中可能会造成无法分配大对象。主要是因为标记清除算法首先会把要回收的对象标记出来，然后再清楚点所有被标记的对象，这些对象很可能在内存中都是不连续的。标记整理算法对前面的标记清除进行了优化，和前面一样，它也是想把要清除的对象进行标记，然后把所有存活的对象都移到一端，然后再把这个端意外的对象清除掉。<br></p>
+<h5 id="下面说一下常用的垃圾收集器。"><a href="#下面说一下常用的垃圾收集器。" class="headerlink" title="下面说一下常用的垃圾收集器。"></a>下面说一下常用的垃圾收集器。</h5><p>   在新生代中最常用的是ParNew收集器。在收集新生代是采用的是复制算法，这个收集器是使用多线程进行垃圾收集。一般用在多核CPU环境下，它一般与CMS收集器配合使用。<br>   老年代中常用的是CMS收集器，它使一种以获取最短回收停顿时间为目标的收集器。它的收集过程一共分为四个步骤：</p>
 <ul>
 <li>初始标记</li>
 <li>并发标记</li>
@@ -445,7 +445,7 @@ java不像c和c++那样需要程序员自己去分配和回收内存，java是�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -462,7 +462,7 @@ java不像c和c++那样需要程序员自己去分配和回收内存，java是�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -491,7 +491,7 @@ java不像c和c++那样需要程序员自己去分配和回收内存，java是�
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#根搜索算法："><span class="nav-number">1.</span> <span class="nav-text">根搜索算法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在回收新生代的时候我们采用的是复制算法。"><span class="nav-number">2.</span> <span class="nav-text">在回收新生代的时候我们采用的是复制算法。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在回收老年代的时候我们用的是标记-清除，或者标记-整理算法。"><span class="nav-number">3.</span> <span class="nav-text">在回收老年代的时候我们用的是标记-清除，或者标记-整理算法。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#下面说一下常用的垃圾收集器。"><span class="nav-number">4.</span> <span class="nav-text">下面说一下常用的垃圾收集器。</span></a></li></ol></div>
             
           </div>
         </section>

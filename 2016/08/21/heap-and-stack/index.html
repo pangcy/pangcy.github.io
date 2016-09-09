@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="jvm," />
+  <meta name="keywords" content="heap,stack," />
 
 
 
@@ -85,21 +85,18 @@
 
 
 <meta name="description" content="java的内存主要分成栈（stack）和堆（heap）两部分。在函数中，一些基本类型的变量和对象的  引用变量都会分配在栈内存中，堆内存主要用于存放由new创建的对象和数组。从堆和栈的功能和作  用来通俗的比较,堆主要用来存放对象的，栈主要是用来执行程序的
-###栈的优缺点
-栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大">
+栈的优缺点栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大小与生存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java的栈与堆">
 <meta property="og:url" content="http://pangcy.github.io/2016/08/21/heap-and-stack/index.html">
 <meta property="og:site_name" content="Kelly's blog">
 <meta property="og:description" content="java的内存主要分成栈（stack）和堆（heap）两部分。在函数中，一些基本类型的变量和对象的  引用变量都会分配在栈内存中，堆内存主要用于存放由new创建的对象和数组。从堆和栈的功能和作  用来通俗的比较,堆主要用来存放对象的，栈主要是用来执行程序的
-###栈的优缺点
-栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大">
-<meta property="og:updated_time" content="2016-09-06T16:34:47.000Z">
+栈的优缺点栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大小与生存">
+<meta property="og:updated_time" content="2016-09-09T05:28:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java的栈与堆">
 <meta name="twitter:description" content="java的内存主要分成栈（stack）和堆（heap）两部分。在函数中，一些基本类型的变量和对象的  引用变量都会分配在栈内存中，堆内存主要用于存放由new创建的对象和数组。从堆和栈的功能和作  用来通俗的比较,堆主要用来存放对象的，栈主要是用来执行程序的
-###栈的优缺点
-栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大">
+栈的优缺点栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大小与生存">
 
 
 
@@ -311,12 +308,10 @@
       
 
       
-        <p></p><p>java的内存主要分成栈（stack）和堆（heap）两部分。在函数中，一些基本类型的变量和对象的<br>  引用变量都会分配在栈内存中，堆内存主要用于存放由new创建的对象和数组。从堆和栈的功能和作<br>  用来通俗的比较,堆主要用来存放对象的，栈主要是用来执行程序的<br></p><p></p>
-<p>###栈的优缺点<br></p>
-<p></p><p>栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。<br></p><p></p>
-<p>###堆的优缺点<br></p>
-<p></p><p>堆内存用于存放由new创建的对象和数组。在堆中分配的内存，由java虚拟机自动垃圾回收器来管理<br>。堆的优点在于编译器不必知道要从堆里分配多少存储空间，也不必知道对象的生命周期,因此,用堆保存数据时会得到更大的灵活性。但是与栈相比，堆的分配和释放比栈更加复杂，而且堆上的内存很有可能不在寄存器或者CUP缓存中，访问命中率就低，所以效率也就会低。<br></p><p></p>
-<p>###JVM中的堆和栈<br></p><p><br>JVM是基于堆栈的虚拟机。JVM为每个新创建的线程都分配一个堆栈。也就是说,对于一个Java程序来说<br>，它的运行就是通过对堆栈的操作来完成的。堆栈是操作系统在建立某个线程并为这个线程建立的存储区域，该区域具有先进后出的特性。<br><br>每一个Java应用都唯一对应一个JVM实例，每一个实例唯一对应一个堆。应用程序在运行中所创建的所<br>有类实例或数组都放在这个堆中，并由应用所有的线程共享。Java中分配堆内存是自动初始化的。Jav<br>a中所有对象的存储空间都是在堆中分配的，但是这个对象的引用却是在堆栈中分配,也就是说在建立<br>一个对象时从两个地方都分配内存，在堆中分配的内存实际建立这个对象，而在栈中分配的内存只是<br>一个指向这个堆对象的指针(引用)而已。<br></p><p></p>
+        <p>java的内存主要分成栈（stack）和堆（heap）两部分。在函数中，一些基本类型的变量和对象的<br>  引用变量都会分配在栈内存中，堆内存主要用于存放由new创建的对象和数组。从堆和栈的功能和作<br>  用来通俗的比较,堆主要用来存放对象的，栈主要是用来执行程序的</p>
+<h3 id="栈的优缺点"><a href="#栈的优缺点" class="headerlink" title="栈的优缺点"></a>栈的优缺点</h3><p>栈的优点是对于小块内存来说，它更容易命中cache，所以效率会比堆更高，而且栈之间可以共享数据。栈的缺点是，存在栈中的数据大小与生存期必须是确定的，缺乏灵活性。</p>
+<h3 id="堆的优缺点"><a href="#堆的优缺点" class="headerlink" title="堆的优缺点"></a>堆的优缺点</h3><p>堆内存用于存放由new创建的对象和数组。在堆中分配的内存，由java虚拟机自动垃圾回收器来管理<br>。堆的优点在于编译器不必知道要从堆里分配多少存储空间，也不必知道对象的生命周期,因此,用堆保存数据时会得到更大的灵活性。但是与栈相比，堆的分配和释放比栈更加复杂，而且堆上的内存很有可能不在寄存器或者CUP缓存中，访问命中率就低，所以效率也就会低。</p>
+<h3 id="JVM中的堆和栈"><a href="#JVM中的堆和栈" class="headerlink" title="JVM中的堆和栈"></a>JVM中的堆和栈</h3><p>JVM是基于堆栈的虚拟机。JVM为每个新创建的线程都分配一个堆栈。也就是说,对于一个Java程序来说<br>，它的运行就是通过对堆栈的操作来完成的。堆栈是操作系统在建立某个线程并为这个线程建立的存储区域，该区域具有先进后出的特性。<br>每一个Java应用都唯一对应一个JVM实例，每一个实例唯一对应一个堆。应用程序在运行中所创建的所<br>有类实例或数组都放在这个堆中，并由应用所有的线程共享。Java中分配堆内存是自动初始化的。Java中所有对象的存储空间都是在堆中分配的，但是这个对象的引用却是在堆栈中分配,也就是说在建立<br>一个对象时从两个地方都分配内存，在堆中分配的内存实际建立这个对象，而在栈中分配的内存只是<br>一个指向这个堆对象的指针(引用)而已。</p>
 
       
     </div>
@@ -339,7 +334,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/jvm/" rel="tag">#jvm</a>
+            <a href="/tags/heap/" rel="tag">#heap</a>
+          
+            <a href="/tags/stack/" rel="tag">#stack</a>
           
         </div>
       
@@ -426,7 +423,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -443,7 +440,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -472,7 +469,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的优缺点"><span class="nav-number">1.</span> <span class="nav-text">栈的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆的优缺点"><span class="nav-number">2.</span> <span class="nav-text">堆的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM中的堆和栈"><span class="nav-number">3.</span> <span class="nav-text">JVM中的堆和栈</span></a></li></ol></div>
             
           </div>
         </section>
