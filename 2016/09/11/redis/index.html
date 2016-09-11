@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="erlang," />
+  <meta name="keywords" content="redis," />
 
 
 
@@ -84,52 +84,22 @@
 
 
 
-<meta name="description" content="下载erlang源码
-地址http://www.erlang.org或者https://github.com/erlang/otp
-
-将源码进行解压缩
-tar -zxf otp_src_17.4.tar.gz
-
-进入到解压缩的文件夹
-cd otp_src_17.4
-
-配置环境变量
-vi ~/.bash.profile
-export ERL_TOP=pwd
-（pwd是获取当前的绝对路径，注意一定要">
+<meta name="description" content="Redis是一个开源（BSD许可），内存存储的数据结构服务器，可用作数据库，高速缓存和消息队列代理。它支持字符串、哈希表、列表、集合、有序集合，位图，hyperloglogs等数据类型。内置复制、Lua脚本、LRU收回、事务以及不同级别磁盘持久化功能，同时通过Redis Sentinel提供高可用，通过Redis Cluster提供自动分区。
+redis与Memcached的区别：
+redis不仅">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mac下安装erlang">
-<meta property="og:url" content="http://pangcy.github.io/2016/08/19/erlang-install/index.html">
+<meta property="og:title" content="redis笔记">
+<meta property="og:url" content="http://pangcy.github.io/2016/09/11/redis/index.html">
 <meta property="og:site_name" content="Kelly's blog">
-<meta property="og:description" content="下载erlang源码
-地址http://www.erlang.org或者https://github.com/erlang/otp
-
-将源码进行解压缩
-tar -zxf otp_src_17.4.tar.gz
-
-进入到解压缩的文件夹
-cd otp_src_17.4
-
-配置环境变量
-vi ~/.bash.profile
-export ERL_TOP=pwd
-（pwd是获取当前的绝对路径，注意一定要">
-<meta property="og:updated_time" content="2016-09-06T16:36:43.000Z">
+<meta property="og:description" content="Redis是一个开源（BSD许可），内存存储的数据结构服务器，可用作数据库，高速缓存和消息队列代理。它支持字符串、哈希表、列表、集合、有序集合，位图，hyperloglogs等数据类型。内置复制、Lua脚本、LRU收回、事务以及不同级别磁盘持久化功能，同时通过Redis Sentinel提供高可用，通过Redis Cluster提供自动分区。
+redis与Memcached的区别：
+redis不仅">
+<meta property="og:updated_time" content="2016-09-11T14:06:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mac下安装erlang">
-<meta name="twitter:description" content="下载erlang源码
-地址http://www.erlang.org或者https://github.com/erlang/otp
-
-将源码进行解压缩
-tar -zxf otp_src_17.4.tar.gz
-
-进入到解压缩的文件夹
-cd otp_src_17.4
-
-配置环境变量
-vi ~/.bash.profile
-export ERL_TOP=pwd
-（pwd是获取当前的绝对路径，注意一定要">
+<meta name="twitter:title" content="redis笔记">
+<meta name="twitter:description" content="Redis是一个开源（BSD许可），内存存储的数据结构服务器，可用作数据库，高速缓存和消息队列代理。它支持字符串、哈希表、列表、集合、有序集合，位图，hyperloglogs等数据类型。内置复制、Lua脚本、LRU收回、事务以及不同级别磁盘持久化功能，同时通过Redis Sentinel提供高可用，通过Redis Cluster提供自动分区。
+redis与Memcached的区别：
+redis不仅">
 
 
 
@@ -150,9 +120,9 @@ export ERL_TOP=pwd
 
 
 
-  <link rel="canonical" href="http://pangcy.github.io/2016/08/19/erlang-install/"/>
+  <link rel="canonical" href="http://pangcy.github.io/2016/09/11/redis/"/>
 
-  <title> mac下安装erlang | Kelly's blog </title>
+  <title> redis笔记 | Kelly's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +252,7 @@ export ERL_TOP=pwd
             
             
               
-                mac下安装erlang
+                redis笔记
               
             
           </h1>
@@ -294,8 +264,8 @@ export ERL_TOP=pwd
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T00:00:00+08:00" content="2016-08-19">
-              2016-08-19
+            <time itemprop="dateCreated" datetime="2016-09-11T21:02:00+08:00" content="2016-09-11">
+              2016-09-11
             </time>
           </span>
 
@@ -341,28 +311,24 @@ export ERL_TOP=pwd
       
 
       
-        <ul>
-<li><p>下载erlang源码</p>
-<p>地址<a href="http://www.erlang.org或者https://github.com/erlang/otp" target="_blank" rel="external">http://www.erlang.org或者https://github.com/erlang/otp</a></p>
-</li>
-<li><p>将源码进行解压缩</p>
-<p><code>tar -zxf otp_src_17.4.tar.gz</code></p>
-</li>
-<li><p>进入到解压缩的文件夹</p>
-<p><code>cd otp_src_17.4</code></p>
-</li>
-<li><p>配置环境变量</p>
-<p><code>vi ~/.bash.profile</code></p>
-<p>export ERL_TOP=<code>pwd</code></p>
-<p>（pwd是获取当前的绝对路径，注意一定要是erlang源码的地址）</p>
-<p><code>export LANG=C</code></p>
-</li>
-<li><p>编译与安装</p>
-<p><code>make</code></p>
-<p><code>sudo make install</code></p>
-</li>
-<li><p>安装目录是：/usr/local</p>
-</li>
+        <p>Redis是一个开源（BSD许可），内存存储的数据结构服务器，可用作数据库，高速缓存和消息队列代理。它支持字符串、哈希表、列表、集合、有序集合，位图，hyperloglogs等数据类型。内置复制、Lua脚本、LRU收回、事务以及不同级别磁盘持久化功能，同时通过Redis Sentinel提供高可用，通过Redis Cluster提供自动分区。</p>
+<h3 id="redis与Memcached的区别："><a href="#redis与Memcached的区别：" class="headerlink" title="redis与Memcached的区别："></a>redis与Memcached的区别：</h3><ul>
+<li>redis不仅仅支持k-v类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</li>
+<li>redis支持数据的备份，即master-slave模式的数据备份。</li>
+<li>redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用。</li>
+<li>redis是单线程的，而memcached是多线程的。100k以上的数据中，Memcached性能要高于Redis。</li>
+</ul>
+<p>redis相比Memcached，拥有更多的数据结构和并支持更丰富的数据操作，通常在Memcached里， 你需要将数据拿到客户端来进行类似的修改再set回去。这大大增加了网络IO的次数和数据体积。在redis中，这些复杂的操作通常和一般的GET-SET一样高效。所以，如果你需要缓存能够支持更复杂的结构和操作，那么redis会是不错的选择。</p>
+<h3 id="redis5种数据类型简介"><a href="#redis5种数据类型简介" class="headerlink" title="redis5种数据类型简介"></a>redis5种数据类型简介</h3><ul>
+<li>String<br>常用的操作就是get，set ，mget，mset，incr，decr。还可以对字符串进行一些操作，例如获取其长度，append内容，获取中间的一段值等等。是最常用的字符类型，用来做K-V存储，也可以进行计数操作。</li>
+<li>List<br>常用命令lpush,rpush,lpop,rpop,lrange,BLPOP,BRPOP,BRPOPLPUSH,LTRIM。它的内部是一个双向链表<br>可以用来实现消息队列、或者粉丝列表等场景。</li>
+<li>Set<br>常用命令sadd,srem,spop,sdiff,smembers,sunion。它内部就是一个value为null的hashmap。<br>set适合需要存储一个列表但是同时又不能重复的情况，还可以用set快速判断某个值是否在其中，还可以求一些交集，并集，差集等。例如在两个好友的set中，求出共同好友。</li>
+<li>Sorted Set<br>常用命令zadd,zrange,zrem,zcard，他是一个有序的set。内部使用了hashmap和跳跃表。<br>通常用来做排行榜，根据一个值进行排序的列表。</li>
+<li>hash<br>常用命令hget,hset,hgetal,hmget,hmset。可以把一个对象的每个属性和值存在hash中，每次可以只修改一个字段。不用像memcached那样必须把整个对象拿出来，修改之后再set进去，需要序列号和反序列化。</li>
+</ul>
+<h3 id="redis高级功能"><a href="#redis高级功能" class="headerlink" title="redis高级功能"></a>redis高级功能</h3><ul>
+<li>Pub/Sub（发布订阅）<br>可以根据一个key进行消息发布和订阅。当一个key值上进行了消息发布后，所有订阅它的客户端都会收到相应的消息。</li>
+<li>Transaction<br>并不是严格的ACID的事务。redis还提供了一个Watch功能，你可以对一个key进行Watch，然后再执行Transactions，在这过程中，如果这个Watched的值进行了修改，那么这个Transactions会发现并拒绝执行。</li>
 </ul>
 
       
@@ -386,7 +352,7 @@ export ERL_TOP=pwd
       
         <div class="post-tags">
           
-            <a href="/tags/erlang/" rel="tag">#erlang</a>
+            <a href="/tags/redis/" rel="tag">#redis</a>
           
         </div>
       
@@ -395,13 +361,13 @@ export ERL_TOP=pwd
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/09/09/mysql-index/" rel="next" title="mysql索引学习笔记">
+                <i class="fa fa-chevron-left"></i> mysql索引学习笔记
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/20/java-gc/" rel="prev" title="java垃圾回收总结">
-                java垃圾回收总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -515,7 +481,7 @@ export ERL_TOP=pwd
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis与Memcached的区别："><span class="nav-number">1.</span> <span class="nav-text">redis与Memcached的区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis5种数据类型简介"><span class="nav-number">2.</span> <span class="nav-text">redis5种数据类型简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis高级功能"><span class="nav-number">3.</span> <span class="nav-text">redis高级功能</span></a></li></ol></div>
             
           </div>
         </section>
