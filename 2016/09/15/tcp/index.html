@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hashmap," />
+  <meta name="keywords" content="tcp," />
 
 
 
@@ -84,13 +84,33 @@
 
 
 
+<meta name="description" content="TCP协议：传输控制协议（Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP协议在网络OSI七层模型的第四次（传输层）。TCP连接包括三个状态：连接创建、数据传送和连接终止。TCP用三次握手（three-way handshake）过程创建一个连接。四次挥手关闭一个连接。
+tcp头部格式
+
+source port 源端口
+des">
 <meta property="og:type" content="article">
-<meta property="og:title" content="说一说Java的HashMap">
-<meta property="og:url" content="http://pangcy.github.io/2016/08/22/talk-about-hashMap/index.html">
+<meta property="og:title" content="tcp协议">
+<meta property="og:url" content="http://pangcy.github.io/2016/09/15/tcp/index.html">
 <meta property="og:site_name" content="Kelly's blog">
-<meta property="og:updated_time" content="2016-09-06T16:36:48.000Z">
+<meta property="og:description" content="TCP协议：传输控制协议（Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP协议在网络OSI七层模型的第四次（传输层）。TCP连接包括三个状态：连接创建、数据传送和连接终止。TCP用三次握手（three-way handshake）过程创建一个连接。四次挥手关闭一个连接。
+tcp头部格式
+
+source port 源端口
+des">
+<meta property="og:image" content="http://pangcy.github.io/images/p1.png">
+<meta property="og:image" content="http://pangcy.github.io/images/p2.png">
+<meta property="og:image" content="http://pangcy.github.io/images/p3.png">
+<meta property="og:image" content="http://pangcy.github.io/images/p3.gif">
+<meta property="og:updated_time" content="2016-09-15T15:39:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="说一说Java的HashMap">
+<meta name="twitter:title" content="tcp协议">
+<meta name="twitter:description" content="TCP协议：传输控制协议（Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP协议在网络OSI七层模型的第四次（传输层）。TCP连接包括三个状态：连接创建、数据传送和连接终止。TCP用三次握手（three-way handshake）过程创建一个连接。四次挥手关闭一个连接。
+tcp头部格式
+
+source port 源端口
+des">
+<meta name="twitter:image" content="http://pangcy.github.io/images/p1.png">
 
 
 
@@ -111,9 +131,9 @@
 
 
 
-  <link rel="canonical" href="http://pangcy.github.io/2016/08/22/talk-about-hashMap/"/>
+  <link rel="canonical" href="http://pangcy.github.io/2016/09/15/tcp/"/>
 
-  <title> 说一说Java的HashMap | Kelly's blog </title>
+  <title> tcp协议 | Kelly's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +263,7 @@
             
             
               
-                说一说Java的HashMap
+                tcp协议
               
             
           </h1>
@@ -255,8 +275,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-22T00:00:00+08:00" content="2016-08-22">
-              2016-08-22
+            <time itemprop="dateCreated" datetime="2016-09-15T16:50:00+08:00" content="2016-09-15">
+              2016-09-15
             </time>
           </span>
 
@@ -302,7 +322,44 @@
       
 
       
-        
+        <p>TCP协议：传输控制协议（Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP协议在网络OSI七层模型的第四次（传输层）。<br>TCP连接包括三个状态：连接创建、数据传送和连接终止。TCP用三次握手（three-way handshake）过程创建一个连接。四次挥手关闭一个连接。</p>
+<h3 id="tcp头部格式"><a href="#tcp头部格式" class="headerlink" title="tcp头部格式"></a>tcp头部格式</h3><p><img src="/images/p1.png" alt="TCP header"></p>
+<ul>
+<li>source port 源端口</li>
+<li>destination port 目标端口</li>
+<li>Sequence Number是包的序号，用来解决网络包乱序。</li>
+<li>Acknowledgement Number（ACK）确认号—— 用来解决确认是否收到。</li>
+<li>window 滑动窗口</li>
+<li>TCP flag 有SYN, FIN, ACK, PSH, RST, URG这几种状态，SYN表示建立连接，FIN表示关闭连接，ACK表示响应，PSH表示接收端不将该数据进行队列处理，RST表示连接重置，URG：紧急指针（urgent pointer）有效。</li>
+</ul>
+<h3 id="建立连接三次握手"><a href="#建立连接三次握手" class="headerlink" title="建立连接三次握手"></a>建立连接三次握手</h3><p><img src="/images/p2.png" alt="three way handshake"></p>
+<ul>
+<li>Client将标志位SYN置为1，随机产生一个值seq=x，并将该数据包发送给Server，Client进入SYN_SENT状态，等待Server确认。</li>
+<li>Server收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1，ack=x+1，随机产生一个值seq=y，并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</li>
+<li>Client收到确认后，检查ack是否为x+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，并将该数据包发送给Server，Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</li>
+</ul>
+<h3 id="终止连接四次挥手"><a href="#终止连接四次挥手" class="headerlink" title="终止连接四次挥手"></a>终止连接四次挥手</h3><p><img src="/images/p3.png" alt="three way handshake"></p>
+<ul>
+<li>Client将标志位FIN置为1，随机产生一个值seq=u，并将该数据包发送给Server，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。</li>
+<li>Server收到数据包后，设置标志位ACK=1，ack=u+1，随机产生一个值seq=v，并将该数据包发送给Client，Server进入CLOSE_WAIT状态。</li>
+<li>Server将标志位FIN、ACK置为1，随机产生一个值seq=w，ack=u+1，并将该数据包发送给Client，用来关闭Server到Client的数据传送，Server进入LAST_ACK状态。</li>
+<li>Client收到数据包后，Client进入TIME_WAIT状态，发送数据包ack=w+1，Server确认收到的ack正确后进入CLOSED状态，完成四次挥手。<br>如果Server没有收到ack，会要求Client重发一次，如果server收到后就会Closed。如果client等待2MSL（两倍报文最大生成时间）后还是没有收到server的要求重发请求，那个client认为server已经收到了ack报文，所以client就会关闭自己的连接。</li>
+</ul>
+<h3 id="TCP状态图"><a href="#TCP状态图" class="headerlink" title="TCP状态图"></a>TCP状态图</h3><p><img src="/images/p3.gif" alt="TCP status"></p>
+<ul>
+<li>CLOSED ：初始状态，表示TCP连接是“关闭着的”或“未打开的”。</li>
+<li>LISTEN ：表示服务器端的某个SOCKET处于监听状态，可以接受客户端的连接。</li>
+<li>SYN_SENT ：表示建立连接是，客户端已经发生SYN报文。</li>
+<li>SYN_RCVD ：表示接收到了SYN报文。</li>
+<li>ESTABLISHED ：表示TCP连接已经成功建立。</li>
+<li>FIN_WAIT_1 ：想主动关闭连接，向对方发送了FIN报文，等待返回ACK报文。</li>
+<li>FIN_WAIT_2 ：主动关闭连接的一方收到对方返回的ACK包后，等待对方发送FIN包。</li>
+<li>TIME_WAIT ：表示收到了对方的FIN报文，并发送出了ACK报文。 TIME_WAIT状态下的TCP连接会等待2*MSL，然后即可回到CLOSED 可用状态了。如果FIN_WAIT_1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。</li>
+<li>CLOSING ：这种状态在实际情况中应该很少见，正常情况下，当一方发送FIN报文后，按理来说是应该先收到（或同时收到）对方的ACK报文，再收到对方的FIN报文。但是CLOSING 状态表示一方发送FIN报文后，并没有收到对方的ACK报文，反而却也收到了对方的FIN报文。当双方几乎在同时close的话，就出现了双方同时发送FIN报文的情况，这是就会出现CLOSING 状态，表示双方都正在关闭SOCKET连接。</li>
+<li>CLOSE_WAIT ：第四次挥手发送ACK报文后会变为CLOSE_WAIT，如果Server没有收到ack，会要求Client重发一次，如果server收到后就会Closed。如果client等待2MSL（两倍报文最大生成时间）后还是没有收到server的要求重发请求，那个client认为server已经收到了ack报文，所以client就会关闭自己的连接。</li>
+<li>LAST_ACK ：当被动关闭的一方在发送FIN报文后，等待对方的ACK报文的时候，就处于LAST_ACK 状态。当收到对方的ACK报文后，也就可以进入到CLOSED 可用状态了。</li>
+</ul>
+
       
     </div>
 
@@ -324,7 +381,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hashmap/" rel="tag">#hashmap</a>
+            <a href="/tags/tcp/" rel="tag">#tcp</a>
           
         </div>
       
@@ -333,17 +390,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/21/heap-and-stack/" rel="next" title="java的栈与堆">
-                <i class="fa fa-chevron-left"></i> java的栈与堆
+              <a href="/2016/09/14/fullcg/" rel="next" title="触发full gc的几种情况">
+                <i class="fa fa-chevron-left"></i> 触发full gc的几种情况
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/09/mysql-index/" rel="prev" title="mysql索引学习笔记">
-                mysql索引学习笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -457,7 +510,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp头部格式"><span class="nav-number">1.</span> <span class="nav-text">tcp头部格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立连接三次握手"><span class="nav-number">2.</span> <span class="nav-text">建立连接三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终止连接四次挥手"><span class="nav-number">3.</span> <span class="nav-text">终止连接四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP状态图"><span class="nav-number">4.</span> <span class="nav-text">TCP状态图</span></a></li></ol></div>
             
           </div>
         </section>

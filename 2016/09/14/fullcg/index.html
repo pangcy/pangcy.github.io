@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hashmap," />
+  <meta name="keywords" content="jvm," />
 
 
 
@@ -84,13 +84,16 @@
 
 
 
+<meta name="description" content="老年代空间不足当新生代对象经过若干次（默认15次，可以通过XX:MaxTenuringThreshold参数来配置）后依旧没有被回收，此对象会进入老年代，或者new一个大对象，或者是一个很大的数组，新生代没有足够的空间，这时对象也会进入老年代，在这些对象进入老年代的时候，假设老年代没有足够的连续的空间，那么就会触发full GC 。如果FULL GC 之后空间还是不足，那么就会报错java.lan">
 <meta property="og:type" content="article">
-<meta property="og:title" content="说一说Java的HashMap">
-<meta property="og:url" content="http://pangcy.github.io/2016/08/22/talk-about-hashMap/index.html">
+<meta property="og:title" content="触发full gc的几种情况">
+<meta property="og:url" content="http://pangcy.github.io/2016/09/14/fullcg/index.html">
 <meta property="og:site_name" content="Kelly's blog">
-<meta property="og:updated_time" content="2016-09-06T16:36:48.000Z">
+<meta property="og:description" content="老年代空间不足当新生代对象经过若干次（默认15次，可以通过XX:MaxTenuringThreshold参数来配置）后依旧没有被回收，此对象会进入老年代，或者new一个大对象，或者是一个很大的数组，新生代没有足够的空间，这时对象也会进入老年代，在这些对象进入老年代的时候，假设老年代没有足够的连续的空间，那么就会触发full GC 。如果FULL GC 之后空间还是不足，那么就会报错java.lan">
+<meta property="og:updated_time" content="2016-09-14T09:35:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="说一说Java的HashMap">
+<meta name="twitter:title" content="触发full gc的几种情况">
+<meta name="twitter:description" content="老年代空间不足当新生代对象经过若干次（默认15次，可以通过XX:MaxTenuringThreshold参数来配置）后依旧没有被回收，此对象会进入老年代，或者new一个大对象，或者是一个很大的数组，新生代没有足够的空间，这时对象也会进入老年代，在这些对象进入老年代的时候，假设老年代没有足够的连续的空间，那么就会触发full GC 。如果FULL GC 之后空间还是不足，那么就会报错java.lan">
 
 
 
@@ -111,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="http://pangcy.github.io/2016/08/22/talk-about-hashMap/"/>
+  <link rel="canonical" href="http://pangcy.github.io/2016/09/14/fullcg/"/>
 
-  <title> 说一说Java的HashMap | Kelly's blog </title>
+  <title> 触发full gc的几种情况 | Kelly's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +246,7 @@
             
             
               
-                说一说Java的HashMap
+                触发full gc的几种情况
               
             
           </h1>
@@ -255,8 +258,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-22T00:00:00+08:00" content="2016-08-22">
-              2016-08-22
+            <time itemprop="dateCreated" datetime="2016-09-14T15:55:00+08:00" content="2016-09-14">
+              2016-09-14
             </time>
           </span>
 
@@ -302,7 +305,10 @@
       
 
       
-        
+        <h3 id="老年代空间不足"><a href="#老年代空间不足" class="headerlink" title="老年代空间不足"></a>老年代空间不足</h3><p>当新生代对象经过若干次（默认15次，可以通过XX:MaxTenuringThreshold参数来配置）后依旧没有被回收，此对象会进入老年代，或者new一个大对象，或者是一个很大的数组，新生代没有足够的空间，这时对象也会进入老年代，在这些对象进入老年代的时候，假设老年代没有足够的连续的空间，那么就会触发full GC 。如果FULL GC 之后空间还是不足，那么就会报错java.lang.OutOfMemoryError: Java heap space。<br>为了防止老年代内存碎片问题，CMS垃圾收集器提供了一个可配置的参数，-XX:+UseCMSCompactAtFullCollection，用于在Full GC之后进行碎片整理，因为内存整理的过程无法并发的，所以停顿时间就会变长。XX:CMSFullGCsBeforeCompaction,这个参数用于设置在执行多少次不压缩的Full GC后,跟着来一次带压缩的full gc。</p>
+<h3 id="perm-gen空间不足"><a href="#perm-gen空间不足" class="headerlink" title="perm gen空间不足"></a>perm gen空间不足</h3><p>perm gen通常称为方法区，主要存放的是class的信息，常量池，静态变量。如果项目中的class太多，或者反射生成太多的class话，就会触发full gc，如果full gc之后还是没有被回收，那么就会报错，java.lang.OutOfMemoryError: PermGen space ，解决这个错误可以调大方法区的大小，PermSize， MaxPermSize<br>如果项目中老年代配置的是CMS收集器，那么该收集器会在回收老年代的时候去回收perm gen。</p>
+<h3 id="minor-GC之后进入老年代的平均大小大于老年剩余空间"><a href="#minor-GC之后进入老年代的平均大小大于老年剩余空间" class="headerlink" title="minor GC之后进入老年代的平均大小大于老年剩余空间"></a>minor GC之后进入老年代的平均大小大于老年剩余空间</h3><p>jvm会在minor GC时判断，如果之前几次minor GC 进入老年代的平均大小，如果平均值大于老年代剩余的空间，那么会直接触发full gc。如果新生代用的Parallel Scavenge收集器，它会在计算出平均值大于老年代后，去回收老年代。</p>
+
       
     </div>
 
@@ -324,7 +330,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hashmap/" rel="tag">#hashmap</a>
+            <a href="/tags/jvm/" rel="tag">#jvm</a>
           
         </div>
       
@@ -333,16 +339,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/21/heap-and-stack/" rel="next" title="java的栈与堆">
-                <i class="fa fa-chevron-left"></i> java的栈与堆
+              <a href="/2016/09/12/proxy/" rel="next" title="代理模式">
+                <i class="fa fa-chevron-left"></i> 代理模式
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/09/mysql-index/" rel="prev" title="mysql索引学习笔记">
-                mysql索引学习笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/15/tcp/" rel="prev" title="tcp协议">
+                tcp协议 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -457,7 +463,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#老年代空间不足"><span class="nav-number">1.</span> <span class="nav-text">老年代空间不足</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perm-gen空间不足"><span class="nav-number">2.</span> <span class="nav-text">perm gen空间不足</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#minor-GC之后进入老年代的平均大小大于老年剩余空间"><span class="nav-number">3.</span> <span class="nav-text">minor GC之后进入老年代的平均大小大于老年剩余空间</span></a></li></ol></div>
             
           </div>
         </section>
